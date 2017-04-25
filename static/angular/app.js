@@ -7,9 +7,13 @@ app.controller('MainController', function ($http) {
     var vm = this;
     vm.list = null;
     vm.is_pregnant = false;
+
+    vm.months_list = months_list;
     vm.get_year = get_year;
     vm.to_heb = to_heb;
+    vm.month_today = month_today;
 
+    months_list()
 
 
 
@@ -63,5 +67,22 @@ app.controller('MainController', function ($http) {
         var hebrew = ['א', 'ב', 'ג', 'ד', 'ה', 'ו', 'ז', 'ח', 'ט', 'י', 'יא', 'יב', 'יג', 'יד', 'טו',
             'טז', 'יז', 'יח', 'יט', 'כ', 'כא', 'כב', 'כג', 'כד', 'כה', 'כו', 'כז', 'כח', 'כט', 'ל'];
         return hebrew[num - 1]
+    }
+
+    function months_list() {
+        var months = ['תשרי','חשון','כסלו','טבת','שבט','אדר', 'אדר א' ,'אדר ב' ,'ניסן','אייר','תמוז','אב','אלול'];
+        if (vm.is_pregnant){
+            months.splice(5, 1);
+        } else {
+            months.splice(6, 2);
+        }
+        console.log(months);
+        return months
+    }
+    function month_today(num){
+        if (vm.is_pregnant & num >= 6){
+            num += 1
+        }
+        return months_list()[num]
     }
 });

@@ -41,32 +41,21 @@
         }
     </style>
 </head>
-<body ng-controller="MainController as mc">
+<body ng-controller="MainController as mc" ng-cloak>
 <div class="container well" ng-init="mc.year={{ year }};mc.month='{{ month }}';mc.get_year({{ year }})">
+    <h2>תאריך היום: <span>{a mc.to_heb({{ day }}) a}</span> <span>{a mc.month_today({{ month }}) a}</span> <span>{{ year }}</span></h2>
     <ul class="list-inline row">
         <li class="col-md-4"></li>
         <li class="col-md-4">
             <form ng-submit="mc.get_year(mc.year)" class="form-inline">
                 <div class="form-group">
                     <select name="month" class="form-control" ng-model="mc.month">
-                        <option value="0">תשרי</option>
-                        <option value="1">חשון</option>
-                        <option value="2">כסלו</option>
-                        <option value="3">טבת</option>
-                        <option value="4">שבט</option>
-                        <option ng-if="mc.is_pregnant" value="5">אדר א</option>
-                        <option ng-if="mc.is_pregnant" value="6">אדר ב</option>
-                        <option ng-if="!mc.is_pregnant" value="5">אדר</option>
-                        <option value="6">ניסן</option>
-                        <option value="7">אייר</option>
-                        <option value="8">סיון</option>
-                        <option value="9">תמוז</option>
-                        <option value="10">אב</option>
-                        <option value="11">אלול</option>
+                        <option value="{a $index a}" ng-repeat="month in mc.months_list() track by $index">{a month a}
+                        </option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <input type="number" class="form-control" ng-model="mc.year" name="year" placeholder="שנה">
+                    <input type="number" class="form-control" ng-model="mc.year" name="year" placeholder="שנה" min="1">
                 </div>
                 <div class="form-group">
                     <button type="submit" class="btn btn-primary">הצג</button>

@@ -12,7 +12,7 @@ app = Flask(__name__)
 @app.route('/')
 def home():
     today = jewish.JewishDate.from_date(datetime.datetime.today())
-    return render_template('index.html', year=today.year, month=today.month - 2)
+    return render_template('index.html', year=today.year, month=today.month - 2, day=today.day)
 
 
 @app.route('/get_year', methods=['POST'])
