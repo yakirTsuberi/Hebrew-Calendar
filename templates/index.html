@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title>לוח שנה</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <style>
+        body {
+            direction: rtl;
+        }
+
+        .day_window {
+            width: 120px;
+            height: 100px;
+            border: 1px solid #8c8c8c;
+            border-radius: 2px;
+            display: inline-block;
+            margin: 2px auto;
+            padding: 5px;
+            vertical-align: top;
+            background-color: white;
+        }
+
+        .day_window:hover {
+            background-color: #e4e4e4;
+        }
+
+        .day_window p {
+            text-align: right;
+        }
+
+        .day_title {
+            width: 120px;
+            border: 1px solid #8c8c8c;
+            display: inline-block;
+            padding: 5px;
+            margin: 2px auto;
+            text-align: center;
+            background-color: rgba(51, 122, 183, 0.7);
+            color: white;
+        }
+    </style>
+</head>
+<body ng-controller="MainController as mc">
+<div class="container well" ng-init="mc.year={{ year }};mc.month='{{ month }}';mc.get_year({{ year }})">
+    <ul class="list-inline row">
+        <li class="col-md-4"></li>
+        <li class="col-md-4">
+            <form ng-submit="mc.get_year(mc.year)" class="form-inline">
+                <div class="form-group">
+                    <select name="month" class="form-control" ng-model="mc.month">
+                        <option value="0">תשרי</option>
+                        <option value="1">חשון</option>
+                        <option value="2">כסלו</option>
+                        <option value="3">טבת</option>
+                        <option value="4">שבט</option>
+                        <option ng-if="mc.is_pregnant" value="5">אדר א</option>
+                        <option ng-if="mc.is_pregnant" value="6">אדר ב</option>
+                        <option ng-if="!mc.is_pregnant" value="5">אדר</option>
+                        <option value="6">ניסן</option>
+                        <option value="7">אייר</option>
+                        <option value="8">סיון</option>
+                        <option value="9">תמוז</option>
+                        <option value="10">אב</option>
+                        <option value="11">אלול</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <input type="number" class="form-control" ng-model="mc.year" name="year" placeholder="שנה">
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">הצג</button>
+                </div>
+            </form>
+        </li>
+        <li class="col-md-4"></li>
+    </ul>
+    <div class="month-window text-center">
+        <div class="day_title">ראשון</div>
+        <div class="day_title">שני</div>
+        <div class="day_title">שלישי</div>
+        <div class="day_title">רביעי</div>
+        <div class="day_title">חמישי</div>
+        <div class="day_title">שישי</div>
+        <div class="day_title">שבת</div>
+        <br>
+        <div class="day_window" ng-repeat-start="day in mc.list[mc.month] track by $index">
+            <p>{a mc.to_heb(day) a}</p>
+        </div>
+        <br ng-if="($index + 1)  % 7 == 0" ng-repeat-end/>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.4/angular.min.js"></script>
+    <script src="/static/angular/app.js"></script>
+</body>
+</html>
