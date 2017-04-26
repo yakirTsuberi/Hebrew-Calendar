@@ -7,13 +7,17 @@ app.controller('MainController', function ($http) {
     var vm = this;
     vm.list = null;
     vm.is_pregnant = false;
+    vm.today = {year:null, month:null, day:null};
 
     vm.months_list = months_list;
     vm.get_year = get_year;
     vm.to_heb = to_heb;
     vm.month_today = month_today;
-
-    months_list()
+    vm.is_today = is_today;
+    vm.next_month = next_month;
+    vm.before_month = before_month;
+    vm.next_year = next_year;
+    vm.before_year = before_year;
 
 
 
@@ -39,7 +43,6 @@ app.controller('MainController', function ($http) {
     function get_months() {
         var result = [];
         for (var month in vm.year_list) {
-            console.log(month);
             var start = vm.year_list[month][1];
             var result_month = range(1, vm.year_list[month][0]);
             if (start === 0)
@@ -59,7 +62,6 @@ app.controller('MainController', function ($http) {
             }
             result.push(result_month)
         }
-        console.log(result);
         return result
     }
 
@@ -70,19 +72,42 @@ app.controller('MainController', function ($http) {
     }
 
     function months_list() {
-        var months = ['תשרי','חשון','כסלו','טבת','שבט','אדר', 'אדר א' ,'אדר ב' ,'ניסן','אייר','תמוז','אב','אלול'];
+        var months = ['תשרי','חשון','כסלו','טבת','שבט','אדר', 'אדר א' ,'אדר ב' ,'ניסן','אייר','סיון','תמוז','אב','אלול'];
         if (vm.is_pregnant){
             months.splice(5, 1);
         } else {
             months.splice(6, 2);
         }
-        console.log(months);
         return months
     }
     function month_today(num){
+        num = Number(num);
         if (vm.is_pregnant & num >= 6){
             num += 1
         }
         return months_list()[num]
+    }
+    function is_today(day) {
+        return day == vm.today.day & vm.month == vm.today.month & vm.year == vm.today.year
+    }
+    function next_month(){
+        vm.month = Number(vm.month);
+        if(vm.month < months_list().length - 1)
+            vm.month += 1
+    }
+    function before_month(){
+        vm.month = Number(vm.month);
+        if(vm.month > 0)
+            vm.month -= 1
+    }
+    function next_year(){
+        if(vm.year < 6000){
+            vm.year += 1;
+            vm.get_year(vm.year)
+            }
+    }
+    function before_year(){
+            vm.year -= 1;
+            vm.get_year(vm.year)
     }
 });
