@@ -23,11 +23,5 @@ def get_year():
                            is_pregnant=is_pregnant(year)))
 
 
-@app.route('/get_today')
-def get_today():
-    today = jewish.JewishDate.from_date(datetime.datetime.today())
-    return json.dumps(dict(year_list=today.year, month=today.month - 2))
-
-
 if __name__ == '__main__':
     app.run(port=8080)
