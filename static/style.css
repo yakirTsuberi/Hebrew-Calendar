@@ -1,0 +1,55 @@
+body {
+    direction: rtl;
+    font-size:18px;
+}
+
+.day_window {
+    width: 120px;
+    height: 100px;
+    border: 1px solid #8c8c8c;
+    border-radius: 2px;
+    display: inline-block;
+    margin: 2px auto;
+    padding: 5px;
+    vertical-align: top;
+    background-color: white;
+}
+
+.day_window:hover {
+    background-color: #e4e4e4;
+}
+
+.day_window p {
+    text-align: right;
+}
+
+.day_title {
+    width: 120px;
+    border: 1px solid #8c8c8c;
+    display: inline-block;
+    padding: 5px;
+    margin: 2px auto;
+    text-align: center;
+    background-color: rgba(51, 122, 183, 0.7);
+    color: white;
+}
+.today {
+    background-color: rgba(51, 122, 183, 0.3);
+}
+.today:hover {
+    background-color: rgba(51, 122, 183, 0.4);
+}
+.main {
+    margin-top:50px;
+}
+.animated  {
+    animation-duration: 0.5s;
+}
+@font-face {
+    font-family: myFirstFont;
+    src: url("orange juice 2.0.ttf");
+}
+.title{
+    font-family: myFirstFont;
+    font-size: 100px;
+}

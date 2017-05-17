@@ -3,7 +3,10 @@ app.config(['$interpolateProvider', function ($interpolateProvider) {
     $interpolateProvider.startSymbol('{a');
     $interpolateProvider.endSymbol('a}');
 }]);
-app.controller('MainController', function ($http, letters) {
+app.controller('MainController', function ($scope, $http,$timeout, letters) {
+
+    $scope.animate_active = null;
+
     var vm = this;
     vm.list = null;
     vm.is_pregnant = false;
@@ -95,26 +98,50 @@ app.controller('MainController', function ($http, letters) {
 
     function next_month() {
         vm.month = Number(vm.month);
-        if (vm.month < months_list().length - 1)
-            vm.month += 1
+        if (vm.month < months_list().length - 1){
+            $scope.animate_active = 'animated zoomOutLeft';
+            $timeout(function(){
+                vm.month += 1
+                $scope.animate_active='animated zoomInRight';
+            },500,true);
+         }
     }
 
     function before_month() {
         vm.month = Number(vm.month);
-        if (vm.month > 0)
-            vm.month -= 1
+        if (vm.month > 0){
+
+            $scope.animate_active = 'animated zoomOutRight';
+            $timeout(function(){
+                vm.month -= 1
+                $scope.animate_active='animated zoomInLeft';
+            },500,true);
+
+
+        }
+
     }
 
     function next_year() {
         if (vm.year < 6000) {
-            vm.year += 1;
-            vm.get_year(vm.year)
+            $scope.animate_active = 'animated zoomOut';
+            $timeout(function(){
+                vm.year += 1;
+                vm.get_year(vm.year);
+                $scope.animate_active='animated zoomIn';
+            },500,true);
+
         }
     }
 
     function before_year() {
-        vm.year -= 1;
-        vm.get_year(vm.year)
+        $scope.animate_active = 'animated zoomOut';
+            $timeout(function(){
+                vm.year -= 1;
+                vm.get_year(vm.year)
+                $scope.animate_active='animated zoomIn';
+            },500,true);
+
     }
 });
 app.service('letters', function () {

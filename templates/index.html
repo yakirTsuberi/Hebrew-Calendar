@@ -4,59 +4,11 @@
     <meta charset="UTF-8">
     <title>לוח שנה</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <style>
-        body {
-            direction: rtl;
-            font-size:18px;
-        }
-
-        .day_window {
-            width: 120px;
-            height: 100px;
-            border: 1px solid #8c8c8c;
-            border-radius: 2px;
-            display: inline-block;
-            margin: 2px auto;
-            padding: 5px;
-            vertical-align: top;
-            background-color: white;
-        }
-
-        .day_window:hover {
-            background-color: #e4e4e4;
-        }
-
-        .day_window p {
-            text-align: right;
-        }
-
-        .day_title {
-            width: 120px;
-            border: 1px solid #8c8c8c;
-            display: inline-block;
-            padding: 5px;
-            margin: 2px auto;
-            text-align: center;
-            background-color: rgba(51, 122, 183, 0.7);
-            color: white;
-        }
-        .today {
-            background-color: rgba(51, 122, 183, 0.3);
-        }
-        .today:hover {
-            background-color: rgba(51, 122, 183, 0.4);
-        }
-        .main {
-            margin-top:50px;
-        }
-
-
-
-
-
-    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" />
+    <link rel="stylesheet" href="/static/style.css" />
 </head>
 <body ng-controller="MainController as mc" ng-cloak>
+<h1 class="text-center title text-primary">#Hebrew-Calendar</h1>
 <div class="main container well" ng-init="mc.today.year={{ year }};mc.today.month='{{ month }}';;mc.today.day={{ day }};
                                     mc.get_year(mc.today.year); mc.year=mc.today.year;mc.month=mc.today.month">
     <div class="row">
@@ -97,7 +49,7 @@
         <div class="col-md-1">
             <h1><a href ng-click="mc.next_month()"><span class="glyphicon glyphicon-menu-left"></span></a></h1>
         </div>
-        <div class="month-window text-center col-md-10">
+        <div class="month-window text-center col-md-10" ng-class="animate_active">
             <div class="day_title">ראשון</div>
             <div class="day_title">שני</div>
             <div class="day_title">שלישי</div>
